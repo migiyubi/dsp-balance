@@ -69,81 +69,71 @@ class TableRenderer {
             const cellFacilities = document.createElement('td');
             row.appendChild(cellFacilities);
             cellFacilities.classList.add('item-facilities');
-            if (data[name].facilities !== undefined) {
+            if (data[name].facilities !== null) {
                 cellFacilities.textContent = data[name].facilities.toFixed(3);
             }
         }
     }
 }
 
-class Core {
-    constructor() {
-        this._usedFacilityMap = {
-            "assembler": "assembling-machine-mk3",
-            "smelting-facility": "smelter",
-            "chemical-facility": "chemical-plant",
-            "research-facility": "matrix-lab",
-            "fractionation-facility": "fractionator",
-            "particle-collider": "miniature-particle-collider"
-        };
+class Item {
+    constructor(name, usedFacilityMap, overrideRecipeMap) {
+        const recipeName = (overrideRecipeMap[name] !== undefined) ? overrideRecipeMap[name] : name;
+        this._recipe = DATA.recipe[recipeName];
+        this._name = name;
+        this._usedFacility = (this._recipe !== undefined) ? DATA.facility[usedFacilityMap[this._recipe.facility]] : null;
 
-        this._order = {};
-        for (const [index, name] of Object.keys(VIZ.offsets).entries()) {
-            this._order[name] = index;
+        this._children = {};
+        if (this._recipe !== undefined) {
+            for (const sourceName in this._recipe.inputs) {
+                this._children[sourceName] = new Item(sourceName, usedFacilityMap, overrideRecipeMap);
+            }
+        }
+
+        this._amount = 0.0;
+        this._facilities = (this._recipe !== undefined) ? 0.0 : null;
+    }
+
+    update(amount) {
+        this._amount = amount;
+
+        const r = this._recipe;
+        const n = this._name;
+
+        if (r === undefined) {
+            return;
+        }
+
+        const cycles = amount / r.outputs[n];
+        const minutesPerCycle = r.time_sec / 60.0 / this._usedFacility.crafting_speed;
+
+        this._facilities = cycles * minutesPerCycle;
+
+        for (const [sourceName, source] of Object.entries(this._children)) {
+            const sourceAmount = cycles * this._recipe.inputs[sourceName];
+            source.update(sourceAmount);
         }
     }
 
-    calc(root, amountPerMinute=1, ret={}) {
-        // calculate amount.
-        const acc = (outputName, outputAmount) => {
-            if (ret[outputName] === undefined) {
-                ret[outputName] = { amount: 0.0 };
-            }
+    getIngredients(ret={}) {
+        const n = this._name;
 
-            ret[outputName].amount += outputAmount;
-
-            const r = DATA.recipe[outputName];
-
-            if (r === undefined) {
-                return;
-            }
-
-            const cycles = outputAmount / r.outputs[outputName];
-
-            for (const inputName in r.inputs) {
-                const inputAmount = cycles * r.inputs[inputName];
-                acc(inputName, inputAmount);
-            }
-        };
-
-        acc(root, amountPerMinute);
-
-        // calculate number of facilities.
-        for (const name in ret) {
-            const r = DATA.recipe[name];
-
-            if (r === undefined) {
-                continue;
-            }
-
-            const usedFacility = this._usedFacilityMap[r.facility];
-            const craftingSpeed = DATA.facility[usedFacility].crafting_speed;
-            const cyclesPerFacility = craftingSpeed * 60.0 / r.time_sec;
-            const amountPerFacility = cyclesPerFacility * r.outputs[name];
-            const facilities = ret[name].amount / amountPerFacility;
-
-            ret[name].facilities = facilities;
+        if (ret[n] === undefined) {
+            ret[n] = { amount: 0.0, facilities: 0.0 };
         }
 
-        // sort.
-        const pairs = Object.entries(ret);
-        pairs.sort((e1, e2) => {
-            const o1 = this._order[e1[0]];
-            const o2 = this._order[e2[0]];
+        ret[n].amount += this._amount;
 
-            return o1 < o2 ? -1 : o1 > o2 ? 1 : 0;
-        });
-        ret = Object.fromEntries(pairs);
+        if (this._facilities !== null) {
+            ret[n].facilities += this._facilities;
+        }
+        else {
+            ret[n].facilities = null;
+        }
+
+        for (const source of Object.values(this._children)) {
+            source.getIngredients(ret);
+        }
 
         return ret;
     }
@@ -151,9 +141,7 @@ class Core {
 
 class App {
     constructor() {
-        this._core = new Core();
         this._renderer = new TableRenderer();
-
         document.body.appendChild(this._renderer.domElement);
 
         const inputTargetAmount = document.querySelector('#target-amount');
@@ -167,14 +155,43 @@ class App {
             this.setTarget('universe-matrix', f);
         });
 
+        this._usedFacilityMap = {
+            "assembler": "assembling-machine-mk3",
+            "smelting-facility": "smelter",
+            "chemical-facility": "chemical-plant",
+            "research-facility": "matrix-lab",
+            "fractionation-facility": "fractionator",
+            "particle-collider": "miniature-particle-collider"
+        };
+
+        this._overrideRecipeMap = {};
+
+        this._order = {};
+        for (const [index, name] of Object.keys(VIZ.offsets).entries()) {
+            this._order[name] = index;
+        }
+
+        this._targetItem = new Item('universe-matrix', this._usedFacilityMap, this._overrideRecipeMap);
+
         const defaultAmount = 100;
         inputTargetAmount.value = defaultAmount.toString(10);
         this.setTarget('universe-matrix', defaultAmount);
     }
 
     setTarget(name, amountPerMin) {
-        const balance = this._core.calc(name, amountPerMin);
-        this._renderer.update(balance);
+        this._targetItem.update(amountPerMin);
+        const data = this._targetItem.getIngredients();
+
+        const pairs = Object.entries(data);
+        pairs.sort((e1, e2) => {
+            const o1 = this._order[e1[0]];
+            const o2 = this._order[e2[0]];
+
+            return o1 < o2 ? -1 : o1 > o2 ? 1 : 0;
+        });
+        const sortedData = Object.fromEntries(pairs);
+
+        this._renderer.update(sortedData);
     }
 }
 

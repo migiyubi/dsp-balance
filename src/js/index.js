@@ -178,7 +178,8 @@ class App {
 
         this._overrideRecipeMap = {
             "refined-oil": "plasma-refining",
-            "deuterium": "deuterium-fractionation"
+            "deuterium": "deuterium-fractionation",
+            "antimatter": "mass-energy-storage"
         };
 
         this._order = {};

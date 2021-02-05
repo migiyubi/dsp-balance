@@ -51,6 +51,7 @@
         "hydrogen":                   { "x": 6, "y": 5 },
         "deuterium":                  { "x": 7, "y": 5 },
         "antimatter":                 { "x": 0, "y": 6 },
+        "critical-photon":            { "x": 7, "y": 6 },
         "electromagnetic-matrix":     { "x": 1, "y": 6 },
         "energy-matrix":              { "x": 2, "y": 6 },
         "structure-matrix":           { "x": 3, "y": 6 },

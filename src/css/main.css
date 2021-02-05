@@ -1,6 +1,40 @@
 body {
-  font-size: 0.9em;
-  font-family: Helvetica, Arial, sans-serif;
+  font-size: 0.8em;
   color: #d2d2d2;
   background-color: #1a1d21;
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+td {
+  padding: 2px 8px;
+}
+
+thead td {
+  font-weight: bold;
+  background-color: #2a2d31;
+}
+
+tbody td {
+  border-bottom: 1px solid #2a2d31;
+}
+
+.item-name {
+  display: flex;
+  align-items: center;
+}
+
+.item-name * {
+  margin-right: 6px;
+}
+
+.item-amount, .item-facilities {
+  text-align: right;
+}
+
+img {
+  vertical-align: middle;
 }

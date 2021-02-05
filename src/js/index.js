@@ -156,7 +156,24 @@ class App {
 
         document.body.appendChild(this._renderer.domElement);
 
-        const balance = this._core.calc('universe-matrix');
+        const inputTargetAmount = document.querySelector('#target-amount');
+        inputTargetAmount.addEventListener('input', (e) => {
+            const f = parseFloat(e.target.value);
+
+            if (isNaN(f)) {
+                return;
+            }
+
+            this.setTarget('universe-matrix', f);
+        });
+
+        const defaultAmount = 100;
+        inputTargetAmount.value = defaultAmount.toString(10);
+        this.setTarget('universe-matrix', defaultAmount);
+    }
+
+    setTarget(name, amountPerMin) {
+        const balance = this._core.calc(name, amountPerMin);
         this._renderer.update(balance);
     }
 }

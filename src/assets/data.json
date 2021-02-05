@@ -102,6 +102,18 @@
             "hand_make": null,
             "time_sec": 3.0
         },
+        "graphene-adv": {
+            "inputs": {
+                "fire-ice": 2
+            },
+            "outputs": {
+                "graphene": 2,
+                "hydrogen": 1
+            },
+            "facility": "chemical-facility",
+            "hand_make": null,
+            "time_sec": 2.0
+        },
         "magnet": {
             "inputs": {
                 "iron-ore": 1
@@ -136,6 +148,17 @@
             "hand_make": null,
             "time_sec": 2.0
         },
+        "crystal-silicon-adv": {
+            "inputs": {
+                "fractal-silicon": 1
+            },
+            "outputs": {
+                "crystal-silicon": 1
+            },
+            "facility": "assembler",
+            "hand_make": null,
+            "time_sec": 4.0
+        },
         "titanium-alloy": {
             "inputs": {
                 "titanium-ingot": 4,
@@ -163,6 +186,17 @@
         "diamond": {
             "inputs": {
                 "energetic-graphite": 1
+            },
+            "outputs": {
+                "diamond": 1
+            },
+            "facility": "smelting-facility",
+            "hand_make": null,
+            "time_sec": 2.0
+        },
+        "diamond-adv": {
+            "inputs": {
+                "kimberlite-ore": 1
             },
             "outputs": {
                 "diamond": 1
@@ -353,6 +387,17 @@
             "hand_make": null,
             "time_sec": 4.0
         },
+        "carbon-nanotube-adv": {
+            "inputs": {
+                "spiniform-stalagmite-crystal": 2
+            },
+            "outputs": {
+                "carbon-nanotube": 2
+            },
+            "facility": "chemical-facility",
+            "hand_make": null,
+            "time_sec": 4.0
+        },
         "particle-broadband": {
             "inputs": {
                 "carbon-nanotube": 2,
@@ -391,11 +436,36 @@
             "hand_make": "replicator",
             "time_sec": 4.0
         },
+        "casimir-crystal-adv": {
+            "inputs": {
+                "optical-grating-crystal": 6,
+                "graphene": 2,
+                "hydrogen": 12
+            },
+            "outputs": {
+                "casimir-crystal": 1
+            },
+            "facility": "assembler",
+            "hand_make": "replicator",
+            "time_sec": 4.0
+        },
         "particle-container": {
             "inputs": {
                 "electromagnetic-turbine": 2,
                 "copper-ingot": 2,
                 "graphene": 2
+            },
+            "outputs": {
+                "particle-container": 1
+            },
+            "facility": "assembler",
+            "hand_make": "replicator",
+            "time_sec": 4.0
+        },
+        "particle-container-adv": {
+            "inputs": {
+                "electromagnetic-turbine": 2,
+                "unipolar-magnet": 10
             },
             "outputs": {
                 "particle-container": 1

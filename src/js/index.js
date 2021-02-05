@@ -170,12 +170,15 @@ class App {
             "assembler": "assembling-machine-mk3",
             "smelting-facility": "smelter",
             "chemical-facility": "chemical-plant",
+            "refining-facility": "oil-refinery",
             "research-facility": "matrix-lab",
             "fractionation-facility": "fractionator",
             "particle-collider": "miniature-particle-collider"
         };
 
-        this._overrideRecipeMap = {};
+        this._overrideRecipeMap = {
+            "refined-oil": "plasma-refining"
+        };
 
         this._order = {};
         for (const [index, name] of Object.keys(VIZ.offsets).entries()) {

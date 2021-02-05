@@ -530,6 +530,10 @@
             "type": "chemical-facility",
             "crafting_speed": 1.0
         },
+        "oil-refinery": {
+            "type": "refining-facility",
+            "crafting_speed": 1.0
+        },
         "matrix-lab": {
             "type": "research-facility",
             "crafting_speed": 1.0

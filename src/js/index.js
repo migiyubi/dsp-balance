@@ -90,15 +90,14 @@ class Item {
             }
         }
 
-        this._amount = 0.0;
-        this._facilities = (this._recipe !== undefined) ? 0.0 : null;
+        this._ingredients = {};
     }
 
     update(amount) {
-        this._amount = amount;
-
         const r = this._recipe;
         const n = this._name;
+
+        this._ingredients[n] = { amount: amount, facilities: null };
 
         if (r === undefined) {
             return;
@@ -107,10 +106,19 @@ class Item {
         const cycles = amount / r.outputs[n];
         const minutesPerCycle = r.time_sec / 60.0 / this._usedFacility.crafting_speed;
 
-        this._facilities = cycles * minutesPerCycle;
+        this._ingredients[n].facilities = cycles * minutesPerCycle;
+
+        // if the recipe has byproducts, accumulate them as minus productivity.
+        for (const [byproductName, byproductAmount] of Object.entries(r.outputs)) {
+            if (byproductName === n) {
+                continue;
+            }
+
+            this._ingredients[byproductName] = { amount: -1.0 * cycles * byproductAmount, facilities: null };
+        }
 
         for (const [sourceName, source] of Object.entries(this._children)) {
-            const sourceAmount = cycles * this._recipe.inputs[sourceName];
+            const sourceAmount = cycles * r.inputs[sourceName];
             source.update(sourceAmount);
         }
     }
@@ -118,17 +126,20 @@ class Item {
     getIngredients(ret={}) {
         const n = this._name;
 
-        if (ret[n] === undefined) {
-            ret[n] = { amount: 0.0, facilities: 0.0 };
-        }
+        for (const [name, data] of Object.entries(this._ingredients)) {
+            if (ret[name] === undefined) {
+                ret[name] = { amount: 0.0, facilities: null };
+            }
 
-        ret[n].amount += this._amount;
+            if (data.facilities !== null && ret[name].facilities === null) {
+                ret[name].facilities = 0.0;
+            }
 
-        if (this._facilities !== null) {
-            ret[n].facilities += this._facilities;
-        }
-        else {
-            ret[n].facilities = null;
+            ret[name].amount += data.amount;
+
+            if (data.facilities !== null) {
+                ret[name].facilities += data.facilities;
+            }
         }
 
         for (const source of Object.values(this._children)) {

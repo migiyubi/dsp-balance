@@ -260,7 +260,7 @@
             "inputs": {
                 "particle-container": 2,
                 "iron-ingot": 2,
-                "deutrium": 10
+                "deuterium": 10
             },
             "outputs": {
                 "strange-matter": 1
@@ -434,7 +434,7 @@
             },
             "outputs": {
                 "hydrogen": 2,
-                "deutrium": 2
+                "antimatter": 2
             },
             "facility": "particle-collider",
             "hand_make": null,

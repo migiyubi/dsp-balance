@@ -3,9 +3,8 @@ import DATA from 'assets/data.json';
 import VIZ from 'assets/viz.json';
 
 class TableRenderer {
-    constructor(root=document.body) {
+    constructor() {
         this._table = document.createElement('table');
-        root.appendChild(this._table);
 
         this._header = document.createElement('thead');
         this._table.appendChild(this._header);
@@ -28,6 +27,8 @@ class TableRenderer {
         this._body = document.createElement('tbody');
         this._table.appendChild(this._body);
     }
+
+    get domElement() { return this._table; }
 
     clearChildren(dom) {
         while (dom.children.length > 0) {
@@ -152,6 +153,8 @@ class App {
     constructor() {
         this._core = new Core();
         this._renderer = new TableRenderer();
+
+        document.body.appendChild(this._renderer.domElement);
 
         const balance = this._core.calc('universe-matrix');
         this._renderer.update(balance);

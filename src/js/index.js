@@ -2,6 +2,22 @@ import 'css/main.css'
 import DATA from 'assets/data.json';
 import VIZ from 'assets/viz.json';
 
+class Util {
+    static setIcon(domElement, itemName) {
+        if (VIZ.offsets[itemName] === undefined) {
+            console.warn(`item icon not found. : itemName=${itemName}`);
+            return;
+        }
+
+        const offsetX = VIZ.offsets[itemName].x * VIZ.width;
+        const offsetY = VIZ.offsets[itemName].y * VIZ.height;
+        domElement.style.width = '16px';
+        domElement.style.height = '16px';
+        domElement.style.backgroundImage = 'url("assets/icon.png")';
+        domElement.style.backgroundPosition = `${-offsetX}px ${-offsetY}px`
+    }
+}
+
 class TableRenderer {
     constructor() {
         this._table = document.createElement('table');
@@ -49,12 +65,7 @@ class TableRenderer {
             {
                 const nameIcon = document.createElement('div');
                 cellName.appendChild(nameIcon);
-                const offsetX = VIZ.offsets[name].x * VIZ.width;
-                const offsetY = VIZ.offsets[name].y * VIZ.height;
-                nameIcon.style.width = '16px';
-                nameIcon.style.height = '16px';
-                nameIcon.style.backgroundImage = 'url("assets/icon.png")';
-                nameIcon.style.backgroundPosition = `${-offsetX}px ${-offsetY}px`
+                Util.setIcon(nameIcon, name);
 
                 const nameMain = document.createElement('div');
                 cellName.appendChild(nameMain);
@@ -163,7 +174,7 @@ class App {
                 return;
             }
 
-            this.setTarget('universe-matrix', f);
+            this.setTarget(this._targetItemName, f);
         });
 
         this._usedFacilityMap = {
@@ -187,11 +198,14 @@ class App {
             this._order[name] = index;
         }
 
-        this._targetItem = new Item('universe-matrix', this._usedFacilityMap, this._overrideRecipeMap);
+        this._targetItemName = 'universe-matrix';
+        this._targetItem = new Item(this._targetItemName, this._usedFacilityMap, this._overrideRecipeMap);
+        Util.setIcon(document.querySelector('#target-icon'), this._targetItemName);
+        document.querySelector('#target-name').textContent = this._targetItemName;
 
         const defaultAmount = 100;
         inputTargetAmount.value = defaultAmount.toString(10);
-        this.setTarget('universe-matrix', defaultAmount);
+        this.setTarget(this._targetItemName, defaultAmount);
     }
 
     setTarget(name, amountPerMin) {

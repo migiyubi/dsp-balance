@@ -45,10 +45,15 @@ img {
 
 #target-amount-container {
   display: flex;
+  align-items: center;
 }
 
 #target-amount-container > * {
   margin: 0 2px;
+}
+
+#target-amount-container > #target-name {
+  margin-right: 8px;
 }
 
 input {

@@ -39,10 +39,6 @@ tbody td {
   text-align: right;
 }
 
-img {
-  vertical-align: middle;
-}
-
 #target-amount-container {
   display: flex;
   align-items: center;

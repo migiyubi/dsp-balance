@@ -464,7 +464,7 @@
         },
         "particle-container-adv": {
             "inputs": {
-                "electromagnetic-turbine": 2,
+                "copper-ingot": 2,
                 "unipolar-magnet": 10
             },
             "outputs": {

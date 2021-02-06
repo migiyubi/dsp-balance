@@ -176,7 +176,7 @@ class App {
 
             this._curAmount = f;
 
-            this.setTarget(this._targetItemName, f);
+            this.setTarget(f);
         });
 
         this._usedFacilityMap = {
@@ -222,7 +222,7 @@ class App {
 
                 this._targetItem = new Item(this._targetItemName, this._usedFacilityMap, this._overrideRecipeMap);
 
-                this.setTarget(this._targetItemName, this._curAmount);
+                this.setTarget(this._curAmount);
             });
 
             const icon = document.createElement('div');
@@ -237,10 +237,10 @@ class App {
         const defaultAmount = 100;
         this._curAmount = defaultAmount;
         inputTargetAmount.value = this._curAmount.toString(10);
-        this.setTarget(this._targetItemName, this._curAmount);
+        this.setTarget(this._curAmount);
     }
 
-    setTarget(name, amountPerMin) {
+    setTarget(amountPerMin) {
         this._targetItem.update(amountPerMin);
         const data = this._targetItem.getIngredients();
 

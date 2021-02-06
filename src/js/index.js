@@ -25,6 +25,7 @@ class TableRenderer {
 
         this._tableBodies = [];
         this._curData = {};
+        this._curTableNum = 0;
 
         window.addEventListener('resize', this.onWindowResize.bind(this));
 
@@ -47,7 +48,10 @@ class TableRenderer {
             tableNum = 3;
         }
 
-        this.setTableNum(tableNum);
+        if (this._curTableNum !== tableNum) {
+            this._curTableNum = tableNum;
+            this.setTableNum(tableNum);
+        }
     }
 
     setTableNum(num) {

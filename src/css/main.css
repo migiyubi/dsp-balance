@@ -8,6 +8,10 @@ body > * {
   margin: 16px 8px;
 }
 
+.title {
+  font-weight: bold;
+}
+
 table {
   border-collapse: separate;
   border-spacing: 0;

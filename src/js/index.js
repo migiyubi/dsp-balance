@@ -37,10 +37,10 @@ class TableRenderer {
         let tableNum;
         const w = window.innerWidth;
 
-        if (w < 920) {
+        if (w < 900) {
             tableNum = 1;
         }
-        else if (w < 1360) {
+        else if (w < 1300) {
             tableNum = 2;
         }
         else {
@@ -225,6 +225,7 @@ class App {
         document.querySelector('#table-container').appendChild(this._renderer.domElement);
 
         const inputTargetAmount = document.querySelector('#target-amount');
+        inputTargetAmount.setAttribute('type', 'text');
         inputTargetAmount.addEventListener('input', (e) => {
             const f = parseFloat(e.target.value);
 

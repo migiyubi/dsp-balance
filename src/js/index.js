@@ -20,13 +20,61 @@ class Util {
 
 class TableRenderer {
     constructor() {
-        this._table = document.createElement('table');
+        this._group = document.createElement('div');
+        this._group.setAttribute('id', 'amount-tables');
 
-        this._header = document.createElement('thead');
-        this._table.appendChild(this._header);
+        this._tableBodies = [];
+        this._curData = {};
 
+        window.addEventListener('resize', this.onWindowResize.bind(this));
+
+        this.onWindowResize();
+    }
+
+    get domElement() { return this._group; }
+
+    onWindowResize() {
+        let tableNum;
+        const w = window.innerWidth;
+
+        if (w < 920) {
+            tableNum = 1;
+        }
+        else if (w < 1360) {
+            tableNum = 2;
+        }
+        else {
+            tableNum = 3;
+        }
+
+        this.setTableNum(tableNum);
+    }
+
+    setTableNum(num) {
+        this.clearChildren(this._group);
+        this._tableBodies = [];
+
+        for (let i = 0; i < num; i++) {
+            const table = document.createElement('table');
+            this._group.appendChild(table);
+
+            const header = document.createElement('thead');
+            table.appendChild(header);
+
+            this.createHeader(header);
+
+            const tbody = document.createElement('tbody');
+            table.appendChild(tbody);
+
+            this._tableBodies.push(tbody);
+        }
+
+        this.update(this._curData);
+    }
+
+    createHeader(parent) {
         const row = document.createElement('tr');
-        this._header.appendChild(row);
+        parent.appendChild(row);
 
         const headerName = document.createElement('td');
         headerName.textContent = 'Name';
@@ -39,12 +87,7 @@ class TableRenderer {
         const headerFacilities = document.createElement('td');
         headerFacilities.textContent = 'Facilities';
         row.appendChild(headerFacilities);
-
-        this._body = document.createElement('tbody');
-        this._table.appendChild(this._body);
     }
-
-    get domElement() { return this._table; }
 
     clearChildren(dom) {
         while (dom.children.length > 0) {
@@ -53,11 +96,26 @@ class TableRenderer {
     }
 
     update(data) {
-        this.clearChildren(this._body);
+        this._curData = data;
+
+        const dataLength = Object.keys(data).length;
+        const subDataLength = Math.ceil(dataLength / this._tableBodies.length);
+
+        for (const [index, tbody] of this._tableBodies.entries()) {
+            const s = index * subDataLength;
+            const e = Math.min((index+1) * subDataLength, dataLength);
+
+            const subData = Object.fromEntries(Object.entries(data).slice(s, e));
+            this.updateCore(tbody, subData);
+        }
+    }
+
+    updateCore(tbody, data) {
+        this.clearChildren(tbody);
 
         for (const name in data) {
             const row = document.createElement('tr');
-            this._body.appendChild(row);
+            tbody.appendChild(row);
 
             const cellName = document.createElement('td');
             row.appendChild(cellName);
@@ -164,7 +222,7 @@ class Item {
 class App {
     constructor() {
         this._renderer = new TableRenderer();
-        document.body.appendChild(this._renderer.domElement);
+        document.querySelector('#table-container').appendChild(this._renderer.domElement);
 
         const inputTargetAmount = document.querySelector('#target-amount');
         inputTargetAmount.addEventListener('input', (e) => {

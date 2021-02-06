@@ -12,6 +12,14 @@ body > * {
   font-weight: bold;
 }
 
+#amount-tables {
+  display: flex;
+}
+
+#amount-tables > * {
+  margin-right: 16px;
+}
+
 table {
   border-collapse: separate;
   border-spacing: 0;
@@ -33,6 +41,7 @@ tbody td {
 .item-name {
   display: flex;
   align-items: center;
+  width: 220px;
 }
 
 .item-name * {

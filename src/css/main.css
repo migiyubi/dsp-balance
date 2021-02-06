@@ -19,12 +19,12 @@ body > * {
 
 #amount-tables > * {
   margin-right: 16px;
+  flex-grow: 1;
 }
 
 table {
   border-collapse: separate;
   border-spacing: 0;
-  width: 100%;
 }
 
 td {
@@ -43,7 +43,7 @@ tbody td {
 .item-name {
   display: flex;
   align-items: center;
-  width: 100%;
+  min-width: 200px;
 }
 
 .item-name * {

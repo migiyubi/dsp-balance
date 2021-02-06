@@ -587,6 +587,40 @@
             "time_sec": 15.0
         }
     },
+    "advanced_recipe": {
+        "sulfuric-acid": {
+            "item": "sulfuric-acid",
+            "recipe": "dummy"
+        },
+        "organic-crystal": {
+            "item": "organic-crystal",
+            "recipe": "dummy"
+        },
+        "fire-ice": {
+            "item": "graphene",
+            "recipe": "graphene-adv"
+        },
+        "fractal-silicon": {
+            "item": "crystal-silicon",
+            "recipe": "crystal-silicon-adv"
+        },
+        "kimberlite-ore": {
+            "item": "diamond",
+            "recipe": "diamond-adv"
+        },
+        "spiniform-stalagmite-crystal": {
+            "item": "carbon-nanotube",
+            "recipe": "carbon-nanotube-adv"
+        },
+        "optical-grating-crystal": {
+            "item": "casimir-crystal",
+            "recipe": "casimir-crystal-adv"
+        },
+        "unipolar-magnet": {
+            "item": "particle-container",
+            "recipe": "particle-container-adv"
+        }
+    },
     "facility": {
         "smelter": {
             "type": "smelting-facility",

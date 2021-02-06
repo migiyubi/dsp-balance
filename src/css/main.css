@@ -52,10 +52,23 @@ tbody td {
   margin-right: 8px;
 }
 
-input {
+input[type="text"] {
   color: #d2d2d2;
   background-color: #1a1d21;
   border: 1px solid #d2d2d2;
   width: 60px;
   text-align: right;
+}
+
+#rare-ore-chooser-container {
+  margin: 0 24px;
+}
+
+#rare-ore-chooser-container > * {
+  display: flex;
+  align-items: center;
+}
+
+#rare-ore-chooser-container > * > * {
+  margin: 0 2px;
 }

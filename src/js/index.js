@@ -174,6 +174,8 @@ class App {
                 return;
             }
 
+            this._curAmount = f;
+
             this.setTarget(this._targetItemName, f);
         });
 
@@ -203,9 +205,39 @@ class App {
         Util.setIcon(document.querySelector('#target-icon'), this._targetItemName);
         document.querySelector('#target-name').textContent = this._targetItemName;
 
+        const rareOreChooserContainer = document.querySelector('#rare-ore-chooser-container');
+        for (const oreName in DATA.advanced_recipe) {
+            const container = document.createElement('div');
+            rareOreChooserContainer.appendChild(container);
+
+            const checkbox = document.createElement('input');
+            container.appendChild(checkbox);
+            checkbox.setAttribute('type', 'checkbox');
+            checkbox.setAttribute('value', oreName);
+            checkbox.addEventListener('change', (e) => {
+                const itemName = DATA.advanced_recipe[e.target.value].item;
+                const recipeName = DATA.advanced_recipe[e.target.value].recipe;
+
+                this._overrideRecipeMap[itemName] = e.target.checked ? recipeName : itemName;
+
+                this._targetItem = new Item(this._targetItemName, this._usedFacilityMap, this._overrideRecipeMap);
+
+                this.setTarget(this._targetItemName, this._curAmount);
+            });
+
+            const icon = document.createElement('div');
+            container.appendChild(icon);
+            Util.setIcon(icon, oreName);
+
+            const label = document.createElement('label');
+            container.appendChild(label);
+            label.textContent = oreName;
+        }
+
         const defaultAmount = 100;
-        inputTargetAmount.value = defaultAmount.toString(10);
-        this.setTarget(this._targetItemName, defaultAmount);
+        this._curAmount = defaultAmount;
+        inputTargetAmount.value = this._curAmount.toString(10);
+        this.setTarget(this._targetItemName, this._curAmount);
     }
 
     setTarget(name, amountPerMin) {

@@ -2,11 +2,11 @@ import 'css/main.css'
 import DATA from 'assets/data.json';
 import VIZ from 'assets/viz.json';
 
-class Util {
-    static setIcon(domElement, itemName) {
+class IconElement {
+    constructor(itemName, domElement=document.createElement('div')) {
         if (VIZ.offsets[itemName] === undefined) {
             console.warn(`item icon not found. : itemName=${itemName}`);
-            return;
+            return domElement;
         }
 
         const offsetX = VIZ.offsets[itemName].x * VIZ.width;
@@ -15,6 +15,8 @@ class Util {
         domElement.style.height = '16px';
         domElement.style.backgroundImage = 'url("assets/icon.png")';
         domElement.style.backgroundPosition = `${-offsetX}px ${-offsetY}px`
+
+        return domElement;
     }
 }
 
@@ -125,9 +127,8 @@ class TableRenderer {
             row.appendChild(cellName);
             cellName.classList.add('item-name');
             {
-                const nameIcon = document.createElement('div');
+                const nameIcon = new IconElement(name);
                 cellName.appendChild(nameIcon);
-                Util.setIcon(nameIcon, name);
 
                 const nameMain = document.createElement('div');
                 cellName.appendChild(nameMain);
@@ -265,7 +266,7 @@ class App {
 
         this._targetItemName = 'universe-matrix';
         this._targetItem = new Item(this._targetItemName, this._usedFacilityMap, this._overrideRecipeMap);
-        Util.setIcon(document.querySelector('#target-icon'), this._targetItemName);
+        new IconElement(this._targetItemName, document.querySelector('#target-icon'));
         document.querySelector('#target-name').textContent = this._targetItemName;
 
         const rareOreChooserContainer = document.querySelector('#rare-ore-chooser-container');
@@ -288,9 +289,8 @@ class App {
                 this.setTarget(this._curAmount);
             });
 
-            const icon = document.createElement('div');
+            const icon = new IconElement(oreName);
             container.appendChild(icon);
-            Util.setIcon(icon, oreName);
 
             const label = document.createElement('label');
             container.appendChild(label);

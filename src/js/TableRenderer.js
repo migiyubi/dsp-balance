@@ -122,6 +122,9 @@ export class TableRenderer {
             const cellAmount = document.createElement('td');
             row.appendChild(cellAmount);
             cellAmount.classList.add('item-amount');
+            if (data[name].amount < 0.0) {
+                cellAmount.classList.add('surplus');
+            }
             cellAmount.textContent = data[name].amount.toFixed(1);
 
             const cellFacilities = document.createElement('td');

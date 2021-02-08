@@ -68,6 +68,10 @@ tbody td {
   width: 80px;
 }
 
+.item-amount.surplus {
+  color: #6495ed;
+}
+
 input[type="text"] {
   color: #d2d2d2;
   background-color: #1a1d21;

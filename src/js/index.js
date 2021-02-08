@@ -49,10 +49,10 @@ class App {
             this._targetItems.push(target);
 
             const row = new TargetAmountRowElement(d.name, (e) => {
-                const f = parseFloat(e.target.value);
+                let f = parseFloat(e.target.value);
 
                 if (isNaN(f)) {
-                    return;
+                    f = 0.0;
                 }
 
                 target.amount = f;

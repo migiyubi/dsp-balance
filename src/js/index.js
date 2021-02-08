@@ -75,7 +75,7 @@ class App {
                 }
 
                 for (const target of this._targetItems) {
-                    target.item = new Item(target.name, this._usedFacilityMap, this._overrideRecipeMap);
+                    target.item = new Item(target.item.name, this._usedFacilityMap, this._overrideRecipeMap);
                 }
 
                 this.update();

@@ -34,6 +34,8 @@
         "electric-motor":             { "x": 7, "y": 2 },
         "titanium-glass":             { "x": 0, "y": 3 },
         "prism":                      { "x": 1, "y": 3 },
+        "photon-combiner":            { "x": 5, "y": 8 },
+        "super-magnetic-ring":        { "x": 1, "y": 9 },
         "deuterium-fractionation":    { "x": 2, "y": 3 },
         "titanium-crystal":           { "x": 3, "y": 3 },
         "strange-matter":             { "x": 4, "y": 3 },
@@ -63,6 +65,11 @@
         "structure-matrix":           { "x": 3, "y": 6 },
         "information-matrix":         { "x": 4, "y": 6 },
         "gravity-matrix":             { "x": 5, "y": 6 },
-        "universe-matrix":            { "x": 6, "y": 6 }
+        "universe-matrix":            { "x": 6, "y": 6 },
+        "deuteron-fuel-rod":          { "x": 2, "y": 9 },
+        "solar-sail":                 { "x": 6, "y": 8 },
+        "frame-material":             { "x": 7, "y": 8 },
+        "dyson-sphere-component":     { "x": 0, "y": 9 },
+        "small-carrier-rocket":       { "x": 3, "y": 9 }
     }
 }

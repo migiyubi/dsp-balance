@@ -585,6 +585,107 @@
             "facility": "research-facility",
             "hand_make": "replicator",
             "time_sec": 15.0
+        },
+        "photon-combiner": {
+            "inputs": {
+                "prism": 2,
+                "circuit-board": 1
+            },
+            "outputs": {
+                "photon-combiner": 1
+            },
+            "facility": "assembler",
+            "hand_make": "replicator",
+            "time_sec": 3.0
+        },
+        "photon-combiner-adv": {
+            "inputs": {
+                "optical-grating-crystal": 1,
+                "circuit-board": 1
+            },
+            "outputs": {
+                "photon-combiner": 1
+            },
+            "facility": "assembler",
+            "hand_make": null,
+            "time_sec": 3.0
+        },
+        "solar-sail": {
+            "inputs": {
+                "graphene": 1,
+                "photon-combiner": 1
+            },
+            "outputs": {
+                "solar-sail": 2
+            },
+            "facility": "assembler",
+            "hand_make": "replicator",
+            "time_sec": 4.0
+        },
+        "frame-material": {
+            "inputs": {
+                "carbon-nanotube": 4,
+                "titanium-alloy": 1,
+                "high-purity-silicon": 1
+            },
+            "outputs": {
+                "frame-material": 1
+            },
+            "facility": "assembler",
+            "hand_make": "replicator",
+            "time_sec": 6.0
+        },
+        "dyson-sphere-component": {
+            "inputs": {
+                "frame-material": 3,
+                "solar-sail": 3,
+                "processor": 3
+            },
+            "outputs": {
+                "dyson-sphere-component": 1
+            },
+            "facility": "assembler",
+            "hand_make": "replicator",
+            "time_sec": 8.0
+        },
+        "super-magnetic-ring": {
+            "inputs": {
+                "electromagnetic-turbine": 2,
+                "energetic-graphite": 1,
+                "magnet": 3
+            },
+            "outputs": {
+                "super-magnetic-ring": 1
+            },
+            "facility": "assembler",
+            "hand_make": "replicator",
+            "time_sec": 3.0
+        },
+        "deuteron-fuel-rod": {
+            "inputs": {
+                "deuterium": 10,
+                "titanium-alloy": 1,
+                "super-magnetic-ring": 1
+            },
+            "outputs": {
+                "deuteron-fuel-rod": 1
+            },
+            "facility": "assembler",
+            "hand_make": "replicator",
+            "time_sec": 6.0
+        },
+        "small-carrier-rocket": {
+            "inputs": {
+                "dyson-sphere-component": 2,
+                "deuteron-fuel-rod": 2,
+                "quantum-chip": 2
+            },
+            "outputs": {
+                "small-carrier-rocket": 1
+            },
+            "facility": "assembler",
+            "hand_make": "replicator",
+            "time_sec": 6.0
         }
     },
     "advanced_recipe": {

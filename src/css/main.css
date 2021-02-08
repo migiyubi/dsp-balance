@@ -9,6 +9,19 @@ body > * {
   margin: 16px 8px;
 }
 
+#target-amount-table .item-name > div {
+  min-width: 0;
+}
+
+#target-amount-table .target-amount > div {
+  display: flex;
+  align-items: center;
+}
+
+#target-amount-table .target-amount > div > * {
+  margin-right: 4px;
+}
+
 .title {
   font-weight: bold;
 }
@@ -40,7 +53,7 @@ tbody td {
   border-bottom: 1px solid #2a2d31;
 }
 
-.item-name {
+.item-name > div {
   display: flex;
   align-items: center;
   min-width: 200px;
@@ -53,19 +66,6 @@ tbody td {
 .item-amount, .item-facilities {
   text-align: right;
   width: 80px;
-}
-
-#target-amount-container {
-  display: flex;
-  align-items: center;
-}
-
-#target-amount-container > * {
-  margin: 0 2px;
-}
-
-#target-amount-container > #target-name {
-  margin-right: 8px;
 }
 
 input[type="text"] {

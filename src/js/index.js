@@ -4,26 +4,13 @@ import VIZ from 'assets/viz.json';
 
 import { TableRenderer } from 'TableRenderer'
 import { Item } from 'Item'
+import { TargetAmountRowElement } from 'TargetAmountRowElement'
 import { IconElement } from 'IconElement'
 
 class App {
     constructor() {
         this._renderer = new TableRenderer();
         document.querySelector('#table-container').appendChild(this._renderer.domElement);
-
-        const inputTargetAmount = document.querySelector('#target-amount');
-        inputTargetAmount.setAttribute('type', 'text');
-        inputTargetAmount.addEventListener('input', (e) => {
-            const f = parseFloat(e.target.value);
-
-            if (isNaN(f)) {
-                return;
-            }
-
-            this._curAmount = f;
-
-            this.setTarget(f);
-        });
 
         this._usedFacilityMap = {
             "assembler": "assembling-machine-mk3",
@@ -46,10 +33,32 @@ class App {
             this._order[name] = index;
         }
 
-        this._targetItemName = 'universe-matrix';
-        this._targetItem = new Item(this._targetItemName, this._usedFacilityMap, this._overrideRecipeMap);
-        new IconElement(this._targetItemName, document.querySelector('#target-icon'));
-        document.querySelector('#target-name').textContent = this._targetItemName;
+        const defaultData = [
+            { name: 'universe-matrix', amount: 100.0 }
+        ];
+        this._targetItems = [];
+
+        const targetAmountTable = document.querySelector('#target-amount-table');
+        for (const d of defaultData) {
+            const target = {
+                item: new Item(d.name, this._usedFacilityMap, this._overrideRecipeMap),
+                amount: d.amount
+            };
+            this._targetItems.push(target);
+
+            const row = new TargetAmountRowElement(d.name, (e) => {
+                const f = parseFloat(e.target.value);
+
+                if (isNaN(f)) {
+                    return;
+                }
+
+                target.amount = f;
+
+                this.update();
+            }, d.amount);
+            targetAmountTable.appendChild(row.domElement);
+        }
 
         const rareOreChooserContainer = document.querySelector('#rare-ore-chooser-container');
         for (const oreName in DATA.advanced_recipe) {
@@ -65,9 +74,11 @@ class App {
                     this._overrideRecipeMap[item] = e.target.checked ? recipe : item;
                 }
 
-                this._targetItem = new Item(this._targetItemName, this._usedFacilityMap, this._overrideRecipeMap);
+                for (const target of this._targetItems) {
+                    target.item = new Item(target.name, this._usedFacilityMap, this._overrideRecipeMap);
+                }
 
-                this.setTarget(this._curAmount);
+                this.update();
             });
 
             const icon = new IconElement(oreName);
@@ -78,15 +89,29 @@ class App {
             label.textContent = oreName;
         }
 
-        const defaultAmount = 100;
-        this._curAmount = defaultAmount;
-        inputTargetAmount.value = this._curAmount.toString(10);
-        this.setTarget(this._curAmount);
+        this.update();
     }
 
-    setTarget(amountPerMin) {
-        this._targetItem.update(amountPerMin);
-        const data = this._targetItem.getIngredients();
+    update() {
+        const data = {};
+
+        for (const target of this._targetItems) {
+            target.item.update(target.amount);
+            const subData = target.item.getIngredients();
+
+            for (const [k, v] of Object.entries(subData)) {
+                if (data[k] === undefined) {
+                    data[k] = v;
+                }
+                else {
+                    data[k].amount += v.amount;
+
+                    if ((data[k].facilities !== null) && (v.facilities !== null)) {
+                        data[k].facilities += v.facilities;
+                    }
+                }
+            }
+        }
 
         const pairs = Object.entries(data);
         pairs.sort((e1, e2) => {

@@ -17,6 +17,8 @@ export class Item {
         this._ingredients = {};
     }
 
+    get name() { return this._name; }
+
     update(amount) {
         const r = this._recipe;
         const n = this._name;

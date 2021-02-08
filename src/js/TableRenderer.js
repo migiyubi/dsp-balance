@@ -107,12 +107,16 @@ export class TableRenderer {
             row.appendChild(cellName);
             cellName.classList.add('item-name');
             {
-                const nameIcon = new IconElement(name);
-                cellName.appendChild(nameIcon);
+                const wrapper = document.createElement('div');
+                cellName.appendChild(wrapper);
+                {
+                    const nameIcon = new IconElement(name);
+                    wrapper.appendChild(nameIcon);
 
-                const nameMain = document.createElement('div');
-                cellName.appendChild(nameMain);
-                nameMain.textContent = name;
+                    const nameMain = document.createElement('div');
+                    wrapper.appendChild(nameMain);
+                    nameMain.textContent = name;
+                }
             }
 
             const cellAmount = document.createElement('td');

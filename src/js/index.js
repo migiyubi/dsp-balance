@@ -61,10 +61,9 @@ class App {
             checkbox.setAttribute('type', 'checkbox');
             checkbox.setAttribute('value', oreName);
             checkbox.addEventListener('change', (e) => {
-                const itemName = DATA.advanced_recipe[e.target.value].item;
-                const recipeName = DATA.advanced_recipe[e.target.value].recipe;
-
-                this._overrideRecipeMap[itemName] = e.target.checked ? recipeName : itemName;
+                for (const {item, recipe} of DATA.advanced_recipe[e.target.value]) {
+                    this._overrideRecipeMap[item] = e.target.checked ? recipe : item;
+                }
 
                 this._targetItem = new Item(this._targetItemName, this._usedFacilityMap, this._overrideRecipeMap);
 

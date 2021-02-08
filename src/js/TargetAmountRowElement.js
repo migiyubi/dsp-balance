@@ -1,4 +1,4 @@
-import { IconElement } from 'IconElement'
+import { IconElement } from 'IconElement';
 
 export class TargetAmountRowElement {
     constructor(itemName, onInput, defaultValue, domElement=document.createElement('tr')) {

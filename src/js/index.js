@@ -1,11 +1,11 @@
-import 'css/main.css'
+import 'css/main.css';
 import DATA from 'assets/data.json';
 import VIZ from 'assets/viz.json';
 
-import { TableRenderer } from 'TableRenderer'
-import { Item } from 'Item'
-import { TargetAmountRowElement } from 'TargetAmountRowElement'
-import { IconElement } from 'IconElement'
+import { TableRenderer } from 'TableRenderer';
+import { Item } from 'Item';
+import { TargetAmountRowElement } from 'TargetAmountRowElement';
+import { IconElement } from 'IconElement';
 
 class App {
     constructor() {

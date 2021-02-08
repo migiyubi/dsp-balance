@@ -14,6 +14,8 @@ export class IconElement {
         domElement.style.backgroundImage = 'url("assets/icon.png")';
         domElement.style.backgroundPosition = `${-offsetX}px ${-offsetY}px`
 
-        return domElement;
+        this._domElement = domElement;
     }
+
+    get domElement() { return this._domElement; }
 }

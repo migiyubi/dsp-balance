@@ -81,7 +81,7 @@ class App {
                 this.update();
             });
 
-            const icon = new IconElement(oreName);
+            const icon = new IconElement(oreName).domElement;
             container.appendChild(icon);
 
             const label = document.createElement('label');

@@ -110,7 +110,7 @@ export class TableRenderer {
                 const wrapper = document.createElement('div');
                 cellName.appendChild(wrapper);
                 {
-                    const nameIcon = new IconElement(name);
+                    const nameIcon = new IconElement(name).domElement;
                     wrapper.appendChild(nameIcon);
 
                     const nameMain = document.createElement('div');

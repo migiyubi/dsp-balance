@@ -9,7 +9,7 @@ export class TargetAmountRowElement {
             const wrapper = document.createElement('div');
             cellName.appendChild(wrapper);
             {
-                const nameIcon = new IconElement(itemName);
+                const nameIcon = new IconElement(itemName).domElement;
                 wrapper.appendChild(nameIcon);
 
                 const nameMain = document.createElement('div');

@@ -729,6 +729,10 @@
             {
                 "item": "casimir-crystal",
                 "recipe": "casimir-crystal-adv"
+            },
+            {
+                "item": "photon-combiner",
+                "recipe": "photon-combiner-adv"
             }
         ],
         "unipolar-magnet": [

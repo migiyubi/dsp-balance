@@ -31,8 +31,11 @@ body > * {
 }
 
 #amount-tables > * {
-  margin-right: 16px;
   flex-grow: 1;
+}
+
+#amount-tables > *:not(:last-child) {
+  margin-right: 16px;
 }
 
 table {

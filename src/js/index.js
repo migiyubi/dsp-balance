@@ -96,7 +96,6 @@ class App {
 
     update() {
         const data = {};
-
         for (const target of this._targetItems) {
             target.item.update(target.amount);
             const subData = target.item.getIngredients();
@@ -115,7 +114,15 @@ class App {
             }
         }
 
-        const pairs = Object.entries(data);
+        const siftedData = {};
+        for (const [k, v] of Object.entries(data)) {
+            // show only significant values.
+            if (v.amount !== 0.0) {
+                siftedData[k] = v;
+            }
+        }
+
+        const pairs = Object.entries(siftedData);
         pairs.sort((e1, e2) => {
             const o1 = this._order[e1[0]];
             const o2 = this._order[e2[0]];

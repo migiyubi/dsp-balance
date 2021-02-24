@@ -81,7 +81,7 @@ export class TableRenderer {
         }
     }
 
-    update(data) {
+    update(data, overrideIconMap={}) {
         this._curData = data;
 
         const dataLength = Object.keys(data).length;
@@ -92,11 +92,11 @@ export class TableRenderer {
             const e = Math.min((index+1) * subDataLength, dataLength);
 
             const subData = Object.fromEntries(Object.entries(data).slice(s, e));
-            this.updateCore(tbody, subData);
+            this.updateCore(tbody, subData, overrideIconMap);
         }
     }
 
-    updateCore(tbody, data) {
+    updateCore(tbody, data, overrideIconMap) {
         this.clearChildren(tbody);
 
         for (const name in data) {
@@ -110,7 +110,9 @@ export class TableRenderer {
                 const wrapper = document.createElement('div');
                 cellName.appendChild(wrapper);
                 {
-                    const nameIcon = new IconElement(name).domElement;
+                    const n = (overrideIconMap[name] !== undefined) ? overrideIconMap[name] : name;
+
+                    const nameIcon = new IconElement(n).domElement;
                     wrapper.appendChild(nameIcon);
 
                     const nameMain = document.createElement('div');

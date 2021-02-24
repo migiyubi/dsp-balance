@@ -28,6 +28,8 @@ class App {
             "antimatter": "mass-energy-storage"
         };
 
+        this._overrideIconMap = {};
+
         this._order = {};
         for (const [index, name] of Object.keys(VIZ.offsets).entries()) {
             this._order[name] = index;
@@ -75,6 +77,7 @@ class App {
             checkbox.addEventListener('change', (e) => {
                 for (const {item, recipe} of DATA.advanced_recipe[e.target.value]) {
                     this._overrideRecipeMap[item] = e.target.checked ? recipe : item;
+                    this._overrideIconMap[item] = e.target.checked ? recipe : item;
                 }
 
                 for (const target of this._targetItems) {
@@ -132,7 +135,7 @@ class App {
         });
         const sortedData = Object.fromEntries(pairs);
 
-        this._renderer.update(sortedData);
+        this._renderer.update(sortedData, this._overrideIconMap);
     }
 }
 

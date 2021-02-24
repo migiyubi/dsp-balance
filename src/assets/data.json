@@ -718,13 +718,13 @@
         "sulfuric-acid": [
             {
                 "item": "sulfuric-acid",
-                "recipe": "dummy"
+                "recipe": "sulfuric-acid-adv"
             }
         ],
         "organic-crystal": [
             {
                 "item": "organic-crystal",
-                "recipe": "dummy"
+                "recipe": "organic-crystal-adv"
             }
         ],
         "fire-ice": [

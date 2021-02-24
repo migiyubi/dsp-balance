@@ -72,6 +72,15 @@
         "antimatter-fuel-rod":        { "x": 5, "y": 9 },
         "plasma-refining":            { "x": 4, "y": 1 },
         "deuterium-fractionation":    { "x": 2, "y": 3 },
-        "mass-energy-storage":        { "x": 2, "y": 5 }
+        "mass-energy-storage":        { "x": 2, "y": 5 },
+        "sulfuric-acid-adv":          { "x": 6, "y": 9 },
+        "organic-crystal-adv":        { "x": 7, "y": 9 },
+        "graphene-adv":               { "x": 0, "y": 10 },
+        "crystal-silicon-adv":        { "x": 1, "y": 10 },
+        "diamond-adv":                { "x": 2, "y": 10 },
+        "carbon-nanotube-adv":        { "x": 3, "y": 10 },
+        "casimir-crystal-adv":        { "x": 4, "y": 10 },
+        "photon-combiner-adv":        { "x": 5, "y": 10 },
+        "particle-container-adv":     { "x": 6, "y": 10 }
     }
 }

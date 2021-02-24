@@ -36,7 +36,8 @@ class App {
         const defaultData = [
             { name: 'universe-matrix', amount: 100.0 },
             { name: 'small-carrier-rocket', amount: 0.0 },
-            { name: 'solar-sail', amount: 0.0 }
+            { name: 'solar-sail', amount: 0.0 },
+            { name: 'antimatter-fuel-rod', amount: 0.0 }
         ];
         this._targetItems = [];
 

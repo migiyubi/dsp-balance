@@ -686,6 +686,32 @@
             "facility": "assembler",
             "hand_make": "replicator",
             "time_sec": 6.0
+        },
+        "annihilation-constraint-sphere": {
+            "inputs": {
+                "particle-container": 1,
+                "processor": 1
+            },
+            "outputs": {
+                "annihilation-constraint-sphere": 1
+            },
+            "facility": "assembler",
+            "hand_make": "replicator",
+            "time_sec": 20.0
+        },
+        "antimatter-fuel-rod": {
+            "inputs": {
+                "antimatter": 10,
+                "hydrogen": 10,
+                "annihilation-constraint-sphere": 1,
+                "titanium-alloy": 1
+            },
+            "outputs": {
+                "antimatter-fuel-rod": 1
+            },
+            "facility": "assembler",
+            "hand_make": "replicator",
+            "time_sec": 12.0
         }
     },
     "advanced_recipe": {

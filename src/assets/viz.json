@@ -68,6 +68,8 @@
         "frame-material":             { "x": 7, "y": 8 },
         "dyson-sphere-component":     { "x": 0, "y": 9 },
         "small-carrier-rocket":       { "x": 3, "y": 9 },
+        "annihilation-constraint-sphere": { "x": 4, "y": 9 },
+        "antimatter-fuel-rod":        { "x": 5, "y": 9 },
         "plasma-refining":            { "x": 4, "y": 1 },
         "deuterium-fractionation":    { "x": 2, "y": 3 },
         "mass-energy-storage":        { "x": 2, "y": 5 }

@@ -7,6 +7,7 @@ export class TableRenderer {
 
         this._tableBodies = [];
         this._curData = {};
+        this._curOverrideIconMap = {};
         this._curTableNum = 0;
 
         window.addEventListener('resize', this.onWindowResize.bind(this));
@@ -55,7 +56,7 @@ export class TableRenderer {
             this._tableBodies.push(tbody);
         }
 
-        this.update(this._curData);
+        this.update(this._curData, this._curOverrideIconMap);
     }
 
     createHeader(parent) {
@@ -83,6 +84,7 @@ export class TableRenderer {
 
     update(data, overrideIconMap={}) {
         this._curData = data;
+        this._curOverrideIconMap = overrideIconMap;
 
         const dataLength = Object.keys(data).length;
         const subDataLength = Math.ceil(dataLength / this._tableBodies.length);
